@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/receipt/receiptheaderform.tsx","./src/components/receipt/receiptitemstable.tsx","./src/components/receipt/receiptsummary.tsx","./src/pages/receiptformpage.tsx","./src/services/receiptapi.ts","./src/types/receipt.ts","./src/utils/money.ts","./src/utils/numbertovietnamesewords.ts"],"version":"5.9.3"}

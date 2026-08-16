@@ -1,0 +1,247 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Times New Roman", "Noto Serif", "Liberation Serif", serif;
+  background: #f4f4f4;
+  color: #111111;
+  line-height: 1.35;
+}
+
+.receipt-paper-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.receipt-paper {
+  width: 820px;
+  background: #ffffff;
+  border: 1px solid #333333;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.receipt-header,
+.receipt-items,
+.receipt-summary {
+  border: none;
+}
+
+.receipt-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 13px;
+}
+
+.receipt-template {
+  text-align: right;
+  max-width: 320px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.receipt-title {
+  margin: 2px 0 4px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 8px 16px;
+}
+
+.line-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  margin: 1px 0;
+}
+
+.line-field.right {
+  justify-content: flex-end;
+}
+
+.line-field.right .account-input {
+  width: 132px;
+  min-width: 132px;
+}
+
+.line-field input {
+  border: none;
+  border-bottom: 1px dotted #333333;
+  border-radius: 0;
+  padding: 1px 3px;
+  min-width: 64px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: "Times New Roman", "Noto Serif", "Liberation Serif", serif;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  border: 1px solid #000000;
+  padding: 3px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+
+.receipt-table thead th {
+  font-weight: 400;
+}
+
+.receipt-table td input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #777777;
+  padding: 1px 2px;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.receipt-table col.col-stt {
+  width: 4%;
+}
+
+.receipt-table col.col-ten-hang {
+  width: 30%;
+}
+
+.receipt-table col.col-ma-so {
+  width: 8%;
+}
+
+.receipt-table col.col-dvt {
+  width: 8%;
+}
+
+.receipt-table col.col-sl-ct {
+  width: 10%;
+}
+
+.receipt-table col.col-sl-nhap {
+  width: 10%;
+}
+
+.receipt-table col.col-don-gia {
+  width: 10%;
+}
+
+.receipt-table col.col-thanh-tien {
+  width: 16%;
+}
+
+.index-row td {
+  font-weight: 400;
+}
+
+.total-row td {
+  font-weight: 700;
+}
+
+.total-row .total-label {
+  text-align: left;
+  font-weight: 700;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+button {
+  border: 1px solid #333333;
+  background: #ffffff;
+  padding: 3px 9px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.signature-date {
+  text-align: right;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.signature-date-fields {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.signature-date-fields input {
+  width: 56px;
+  border: none;
+  border-bottom: 1px dotted #333333;
+  text-align: center;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 1px 2px;
+}
+
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.signature-grid p {
+  margin: 1px 0;
+}
+
+.signature-grid input {
+  border: none;
+  border-bottom: 1px dotted #333333;
+  width: 100%;
+  text-align: center;
+  font-family: inherit;
+}
+
+.amount-number {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.save-button {
+  align-self: flex-end;
+  margin-top: 6px;
+}
+
+.status-message {
+  margin: 0;
+}
+
+.error {
+  margin: 2px 0 4px;
+  color: #b00020;
+  font-size: 12px;
+}

@@ -1,22 +1,17 @@
-import type { ReceiptItem } from "../../types/receipt";
+import type { ReceiptItemsTableProps } from "../../types/receipt";
 import { calculateLineTotal } from "../../utils/money";
-
-type ReceiptItemsTableProps = {
-  items: ReceiptItem[];
-  onAddItem: () => void;
-  onRemoveItem: (id: string) => void;
-  onChangeItem: (id: string, field: keyof ReceiptItem, value: string | number) => void;
-  itemError?: string;
-};
 
 export function ReceiptItemsTable({
   items,
   onAddItem,
   onRemoveItem,
   onChangeItem,
-  itemError
+  itemError,
 }: ReceiptItemsTableProps) {
-  const sumAmount = items.reduce((sum, item) => sum + calculateLineTotal(item), 0);
+  const sumAmount = items.reduce(
+    (sum, item) => sum + calculateLineTotal(item),
+    0,
+  );
   const hasRemovableRow = items.length > 1;
   const lastItemId = hasRemovableRow ? items[items.length - 1].id : null;
 
@@ -35,8 +30,13 @@ export function ReceiptItemsTable({
         </colgroup>
         <thead>
           <tr>
-            <th rowSpan={2}>S<br />T<br />T</th>
-            <th rowSpan={2}>Tên, nhãn hiệu, quy cách, phẩm chất vật tư, dụng cụ sản phẩm, hàng hóa</th>
+            <th rowSpan={2}>
+              S<br />T<br />T
+            </th>
+            <th rowSpan={2}>
+              Tên, nhãn hiệu, quy cách, phẩm chất vật tư, dụng cụ sản phẩm, hàng
+              hóa
+            </th>
             <th rowSpan={2}>Mã số</th>
             <th rowSpan={2}>Đơn vị tính</th>
             <th colSpan={2}>Số lượng</th>
@@ -65,34 +65,32 @@ export function ReceiptItemsTable({
               <td>
                 <input
                   value={item.tenHang}
-                  onChange={(e) => onChangeItem(item.id, "tenHang", e.target.value)}
+                  onChange={(e) =>
+                    onChangeItem(item.id, "tenHang", e.target.value)
+                  }
                   placeholder="Tên hàng"
                 />
                 <input
                   value={item.nhanHieu}
-                  onChange={(e) => onChangeItem(item.id, "nhanHieu", e.target.value)}
+                  onChange={(e) =>
+                    onChangeItem(item.id, "nhanHieu", e.target.value)
+                  }
                   placeholder="Nhãn hiệu, quy cách"
                 />
               </td>
               <td>
                 <input
                   value={item.maSo}
-                  onChange={(e) => onChangeItem(item.id, "maSo", e.target.value)}
+                  onChange={(e) =>
+                    onChangeItem(item.id, "maSo", e.target.value)
+                  }
                 />
               </td>
               <td>
                 <input
                   value={item.donViTinh}
-                  onChange={(e) => onChangeItem(item.id, "donViTinh", e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  min={0}
-                  value={item.soLuongChungTu}
                   onChange={(e) =>
-                    onChangeItem(item.id, "soLuongChungTu", Number(e.target.value))
+                    onChangeItem(item.id, "donViTinh", e.target.value)
                   }
                 />
               </td>
@@ -100,9 +98,13 @@ export function ReceiptItemsTable({
                 <input
                   type="number"
                   min={0}
-                  value={item.soLuongThucNhap}
+                  value={item.soLuongChungTu === 0 ? "" : item.soLuongChungTu}
                   onChange={(e) =>
-                    onChangeItem(item.id, "soLuongThucNhap", Number(e.target.value))
+                    onChangeItem(
+                      item.id,
+                      "soLuongChungTu",
+                      Number(e.target.value),
+                    )
                   }
                 />
               </td>
@@ -110,11 +112,31 @@ export function ReceiptItemsTable({
                 <input
                   type="number"
                   min={0}
-                  value={item.donGia}
-                  onChange={(e) => onChangeItem(item.id, "donGia", Number(e.target.value))}
+                  value={item.soLuongThucNhap === 0 ? "" : item.soLuongThucNhap}
+                  onChange={(e) =>
+                    onChangeItem(
+                      item.id,
+                      "soLuongThucNhap",
+                      Number(e.target.value),
+                    )
+                  }
                 />
               </td>
-              <td>{calculateLineTotal(item).toLocaleString("vi-VN")}</td>
+              <td>
+                <input
+                  type="number"
+                  min={0}
+                  value={item.donGia === 0 ? "" : item.donGia}
+                  onChange={(e) =>
+                    onChangeItem(item.id, "donGia", Number(e.target.value))
+                  }
+                />
+              </td>
+              <td>
+                {calculateLineTotal(item) === 0
+                  ? ""
+                  : calculateLineTotal(item).toLocaleString("vi-VN")}
+              </td>
             </tr>
           ))}
           <tr className="total-row">
@@ -125,7 +147,7 @@ export function ReceiptItemsTable({
             <td>x</td>
             <td>x</td>
             <td>x</td>
-            <td>{sumAmount.toLocaleString("vi-VN")}</td>
+            <td>{sumAmount === 0 ? "" : sumAmount.toLocaleString("vi-VN")}</td>
           </tr>
         </tbody>
       </table>

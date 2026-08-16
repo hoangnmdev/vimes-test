@@ -1,17 +1,10 @@
-import type { ReceiptHeader } from "../../types/receipt";
-
-type ReceiptSummaryProps = {
-  header: ReceiptHeader;
-  onChange: (field: keyof ReceiptHeader, value: string) => void;
-  totalAmount: number;
-  totalAmountInWords: string;
-};
+import type { ReceiptSummaryProps } from "../../types/receipt";
 
 export function ReceiptSummary({
   header,
   onChange,
   totalAmount,
-  totalAmountInWords
+  totalAmountInWords,
 }: ReceiptSummaryProps) {
   return (
     <section className="receipt-summary">
@@ -26,16 +19,27 @@ export function ReceiptSummary({
           onChange={(e) => onChange("soChungTuKem", e.target.value)}
         />
       </div>
-      <p className="amount-number">Tổng tiền số: {totalAmount.toLocaleString("vi-VN")} đồng</p>
+      <p className="amount-number">
+        Tổng tiền số: {totalAmount.toLocaleString("vi-VN")} đồng
+      </p>
 
       <div className="signature-date">
         <div className="signature-date-fields">
           <span>Ngày</span>
-          <input value={header.ngayKy} onChange={(e) => onChange("ngayKy", e.target.value)} />
+          <input
+            value={header.ngayKy}
+            onChange={(e) => onChange("ngayKy", e.target.value)}
+          />
           <span>tháng</span>
-          <input value={header.thangKy} onChange={(e) => onChange("thangKy", e.target.value)} />
+          <input
+            value={header.thangKy}
+            onChange={(e) => onChange("thangKy", e.target.value)}
+          />
           <span>năm</span>
-          <input value={header.namKy} onChange={(e) => onChange("namKy", e.target.value)} />
+          <input
+            value={header.namKy}
+            onChange={(e) => onChange("namKy", e.target.value)}
+          />
         </div>
       </div>
       <div className="signature-grid">
@@ -58,7 +62,10 @@ export function ReceiptSummary({
         <div>
           <strong>Thủ kho</strong>
           <p>(Ký, họ tên)</p>
-          <input value={header.thuKho} onChange={(e) => onChange("thuKho", e.target.value)} />
+          <input
+            value={header.thuKho}
+            onChange={(e) => onChange("thuKho", e.target.value)}
+          />
         </div>
         <div>
           <strong>Kế toán trưởng</strong>

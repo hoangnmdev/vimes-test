@@ -1,24 +1,28 @@
-import type { ReceiptHeader } from "../../types/receipt";
+import type { ReceiptHeaderFormProps } from "../../types/receipt";
 
-type ReceiptHeaderFormProps = {
-  header: ReceiptHeader;
-  onChange: (field: keyof ReceiptHeader, value: string) => void;
-  errors: Partial<Record<keyof ReceiptHeader, string>>;
-};
-
-export function ReceiptHeaderForm({ header, onChange, errors }: ReceiptHeaderFormProps) {
+export function ReceiptHeaderForm({
+  header,
+  onChange,
+  errors,
+}: ReceiptHeaderFormProps) {
   return (
     <section className="receipt-header">
       <div className="receipt-meta">
         <div>
           <div className="line-field">
             <span>Đơn vị:</span>
-            <input value={header.donVi} onChange={(e) => onChange("donVi", e.target.value)} />
+            <input
+              value={header.donVi}
+              onChange={(e) => onChange("donVi", e.target.value)}
+            />
           </div>
           {errors.donVi && <p className="error">{errors.donVi}</p>}
           <div className="line-field">
             <span>Bộ phận:</span>
-            <input value={header.boPhan} onChange={(e) => onChange("boPhan", e.target.value)} />
+            <input
+              value={header.boPhan}
+              onChange={(e) => onChange("boPhan", e.target.value)}
+            />
           </div>
           {errors.boPhan && <p className="error">{errors.boPhan}</p>}
         </div>
@@ -38,11 +42,20 @@ export function ReceiptHeaderForm({ header, onChange, errors }: ReceiptHeaderFor
       <div className="header-grid">
         <div className="line-field">
           <span>Ngày</span>
-          <input value={header.ngayLap} onChange={(e) => onChange("ngayLap", e.target.value)} />
+          <input
+            value={header.ngayLap}
+            onChange={(e) => onChange("ngayLap", e.target.value)}
+          />
           <span>tháng</span>
-          <input value={header.thangLap} onChange={(e) => onChange("thangLap", e.target.value)} />
+          <input
+            value={header.thangLap}
+            onChange={(e) => onChange("thangLap", e.target.value)}
+          />
           <span>năm</span>
-          <input value={header.namLap} onChange={(e) => onChange("namLap", e.target.value)} />
+          <input
+            value={header.namLap}
+            onChange={(e) => onChange("namLap", e.target.value)}
+          />
         </div>
         <div className="line-field right">
           <span>Nợ</span>
@@ -55,7 +68,10 @@ export function ReceiptHeaderForm({ header, onChange, errors }: ReceiptHeaderFor
 
         <div className="line-field">
           <span>Số:</span>
-          <input value={header.soPhieu} onChange={(e) => onChange("soPhieu", e.target.value)} />
+          <input
+            value={header.soPhieu}
+            onChange={(e) => onChange("soPhieu", e.target.value)}
+          />
         </div>
         <div className="line-field right">
           <span>Có</span>
@@ -70,15 +86,24 @@ export function ReceiptHeaderForm({ header, onChange, errors }: ReceiptHeaderFor
 
       <div className="line-field">
         <span>Họ và tên người giao:</span>
-        <input value={header.nguoiGiao} onChange={(e) => onChange("nguoiGiao", e.target.value)} />
+        <input
+          value={header.nguoiGiao}
+          onChange={(e) => onChange("nguoiGiao", e.target.value)}
+        />
       </div>
       {errors.nguoiGiao && <p className="error">{errors.nguoiGiao}</p>}
 
       <div className="line-field">
         <span>Theo</span>
-        <input value={header.theoSo} onChange={(e) => onChange("theoSo", e.target.value)} />
+        <input
+          value={header.theoSo}
+          onChange={(e) => onChange("theoSo", e.target.value)}
+        />
         <span>số</span>
-        <input value={header.soChungTu} onChange={(e) => onChange("soChungTu", e.target.value)} />
+        <input
+          value={header.soChungTu}
+          onChange={(e) => onChange("soChungTu", e.target.value)}
+        />
         <span>ngày</span>
         <input
           value={header.ngayChungTu}
@@ -95,14 +120,23 @@ export function ReceiptHeaderForm({ header, onChange, errors }: ReceiptHeaderFor
           onChange={(e) => onChange("namChungTu", e.target.value)}
         />
         <span>của</span>
-        <input value={header.cua} onChange={(e) => onChange("cua", e.target.value)} />
+        <input
+          value={header.cua}
+          onChange={(e) => onChange("cua", e.target.value)}
+        />
       </div>
 
       <div className="line-field">
         <span>Nhập tại kho:</span>
-        <input value={header.khoNhap} onChange={(e) => onChange("khoNhap", e.target.value)} />
+        <input
+          value={header.khoNhap}
+          onChange={(e) => onChange("khoNhap", e.target.value)}
+        />
         <span>địa điểm:</span>
-        <input value={header.diaDiem} onChange={(e) => onChange("diaDiem", e.target.value)} />
+        <input
+          value={header.diaDiem}
+          onChange={(e) => onChange("diaDiem", e.target.value)}
+        />
       </div>
       {(errors.khoNhap || errors.diaDiem) && (
         <p className="error">{errors.khoNhap ?? errors.diaDiem}</p>

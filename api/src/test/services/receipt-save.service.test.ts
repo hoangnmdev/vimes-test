@@ -80,6 +80,9 @@ describe("saveReceipt", () => {
     expect(query).toHaveBeenCalledWith("BEGIN");
     expect(query).toHaveBeenCalledWith("COMMIT");
     expect(query).not.toHaveBeenCalledWith("ROLLBACK");
+    const headerInsertParams = query.mock.calls[1]?.[1] as unknown[];
+    expect(headerInsertParams[21]).toBe(20000);
+    expect(headerInsertParams[22]).toBe("Hai mươi nghìn đồng");
     expect(release).toHaveBeenCalledTimes(1);
   });
 

@@ -4,6 +4,7 @@ import { getDbPool } from "../db/pool";
 import type { PersistReceipt } from "../interfaces/receipt/receipt-repository.interface";
 import type { SaveReceiptResult } from "../interfaces/receipt/save-receipt-result.interface";
 import { HttpError } from "../utils/http-error";
+import { numberToVietnameseWords } from "../utils/number-to-vietnamese-words";
 import { formatValidationError } from "../utils/validation-error";
 import type { CreateReceiptPayload } from "../validators/receipt.validator";
 import { createReceiptSchema } from "../validators/receipt.validator";
@@ -47,6 +48,7 @@ async function persistReceiptToPostgres(
     (sum, item) => sum + item.soLuongThucNhap * item.donGia,
     0
   );
+  const tongTienChu = numberToVietnameseWords(tongTienSo);
 
   try {
     await client.query("BEGIN");
@@ -58,14 +60,14 @@ async function persistReceiptToPostgres(
         no_tai_khoan, co_tai_khoan, nguoi_giao, theo_so, so_chung_tu,
         ngay_chung_tu, thang_chung_tu, nam_chung_tu, cua, kho_nhap, dia_diem,
         so_chung_tu_kem, nguoi_lap_phieu, thu_kho, ke_toan_truong,
-        tong_tien_so, ngay_ky, thang_ky, nam_ky
+        tong_tien_so, tong_tien_chu, ngay_ky, thang_ky, nam_ky
       )
       VALUES (
         $1, $2, $3, $4, $5, $6,
         $7, $8, $9, $10, $11,
         $12, $13, $14, $15, $16, $17,
         $18, $19, $20, $21,
-        $22, $23, $24, $25
+        $22, $23, $24, $25, $26
       )
       RETURNING id
       `,
@@ -92,6 +94,7 @@ async function persistReceiptToPostgres(
         payload.header.thuKho,
         payload.header.keToanTruong,
         tongTienSo,
+        tongTienChu,
         payload.header.ngayKy,
         payload.header.thangKy,
         payload.header.namKy

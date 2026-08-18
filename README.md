@@ -1,17 +1,55 @@
 # VIMES Inventory Receipt
 
-Ứng dụng nhập phiếu nhập kho (Form 01-VT) gồm:
+Ứng dụng nhập phiếu nhập kho (Form 01-VT).
 
-- `api/`: Backend Node.js + Express + TypeScript + PostgreSQL
-- `web/`: Frontend React + Vite + TypeScript
+## Cấu trúc dự án
 
-## Yêu cầu hệ thống
+```
+VIMES/
+├── api/
+│   ├── migrations/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── db/
+│   │   ├── middlewares/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── validators/
+│   │   ├── utils/
+│   │   ├── test/
+│   │   ├── app.ts
+│   │   └── server.ts
+│   ├── .env.example
+│   └── package.json
+│
+└── web/
+    ├── public/
+    ├── src/
+    │   ├── components/receipt/
+    │   ├── pages/
+    │   ├── services/
+    │   ├── types/
+    │   ├── utils/
+    │   ├── styles/
+    │   ├── App.tsx
+    │   └── main.tsx
+    ├── .env.example
+    └── package.json
+```
 
-- Node.js 20+
-- npm 10+
-- PostgreSQL 14+ (hoặc phiên bản tương thích)
+## Cài đặt
 
-## 1) Cài đặt dependencies
+**Yêu cầu hệ thống:** Node.js 20+, npm 10+, PostgreSQL 14+ (hoặc phiên bản tương thích)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/hoangnmdev/vimes-test.git
+cd vimes-test
+```
+
+### 2. Cài đặt dependencies
 
 ```bash
 # Backend
@@ -23,7 +61,7 @@ cd ../web
 npm install
 ```
 
-## 2) Cấu hình môi trường
+## Cấu hình môi trường
 
 Tạo file `api/.env`:
 
@@ -40,7 +78,7 @@ Ghi chú:
 - Frontend mặc định gọi API tại `http://localhost:3000/api/v1`.
 - Nếu muốn đổi API URL cho frontend, set `VITE_API_URL` khi chạy web.
 
-## 3) Khởi tạo database (migration)
+## Khởi tạo database (migration)
 
 Trong thư mục `api/`:
 
@@ -54,7 +92,7 @@ Rollback 1 migration:
 npx node-pg-migrate down
 ```
 
-## 4) Chạy dự án
+## Chạy dự án
 
 Mở 2 terminal riêng:
 
@@ -76,7 +114,7 @@ npm run dev
 
 Frontend URL: `http://localhost:5173`
 
-## 5) Chạy test
+## Chạy test
 
 Trong thư mục `api/`:
 
@@ -84,13 +122,15 @@ Trong thư mục `api/`:
 npm test
 ```
 
-Chạy kèm coverage:
+Chạy kèm coverage (báo cáo đầy đủ theo từng file):
 
 ```bash
 npm run test:coverage
 ```
 
-## 6) Build production
+![Báo cáo coverage](./docs/images/test-coverage-report.png)
+
+## Build production
 
 ### Backend
 

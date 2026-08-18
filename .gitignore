@@ -1,0 +1,10 @@
+.cursor/
+.venv/
+openspec/
+*.png
+*.docx
+node_modules/
+dist/
+api/coverage/
+.env
+api/.env

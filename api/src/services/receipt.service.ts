@@ -1,9 +1,9 @@
-import { StatusCodes } from "http-status-codes";
 import type { PoolClient } from "pg";
 import { getDbPool } from "../db/pool";
 import type { PersistReceipt } from "../interfaces/receipt/receipt-repository.interface";
 import type { SaveReceiptResult } from "../interfaces/receipt/save-receipt-result.interface";
-import { HttpError } from "../utils/http-error";
+import { BadRequestError } from "../utils/http-error";
+import { ConflictError } from "../utils/http-error";
 import { numberToVietnameseWords } from "../utils/number-to-vietnamese-words";
 import { formatValidationError } from "../utils/validation-error";
 import type { CreateReceiptPayload } from "../validators/receipt.validator";
@@ -12,7 +12,7 @@ import { createReceiptSchema } from "../validators/receipt.validator";
 async function insertItems(
   client: PoolClient,
   receiptId: string,
-  payload: CreateReceiptPayload
+  payload: CreateReceiptPayload,
 ): Promise<void> {
   for (const [index, item] of payload.items.entries()) {
     const thanhTien = item.soLuongThucNhap * item.donGia;
@@ -34,19 +34,19 @@ async function insertItems(
         item.soLuongChungTu,
         item.soLuongThucNhap,
         item.donGia,
-        thanhTien
-      ]
+        thanhTien,
+      ],
     );
   }
 }
 
 async function persistReceiptToPostgres(
-  payload: CreateReceiptPayload
+  payload: CreateReceiptPayload,
 ): Promise<SaveReceiptResult> {
   const client = await getDbPool().connect();
   const tongTienSo = payload.items.reduce(
     (sum, item) => sum + item.soLuongThucNhap * item.donGia,
-    0
+    0,
   );
   const tongTienChu = numberToVietnameseWords(tongTienSo);
 
@@ -97,13 +97,13 @@ async function persistReceiptToPostgres(
         tongTienChu,
         payload.header.ngayKy,
         payload.header.thangKy,
-        payload.header.namKy
-      ]
+        payload.header.namKy,
+      ],
     );
 
     const receiptId = headerResult.rows[0]?.id;
     if (!receiptId) {
-      throw new Error("Cannot persist receipt.");
+      throw new ConflictError("Không thể lưu phiếu.");
     }
 
     await insertItems(client, receiptId, payload);
@@ -111,7 +111,7 @@ async function persistReceiptToPostgres(
 
     return {
       id: receiptId,
-      itemCount: payload.items.length
+      itemCount: payload.items.length,
     };
   } catch (error) {
     await client.query("ROLLBACK");
@@ -123,15 +123,11 @@ async function persistReceiptToPostgres(
 
 export async function saveReceipt(
   payload: unknown,
-  persistReceipt: PersistReceipt = persistReceiptToPostgres
+  persistReceipt: PersistReceipt = persistReceiptToPostgres,
 ): Promise<SaveReceiptResult> {
   const parsed = createReceiptSchema.safeParse(payload);
   if (!parsed.success) {
-    throw new HttpError(
-      StatusCodes.BAD_REQUEST,
-      "VALIDATION_ERROR",
-      formatValidationError(parsed.error)
-    );
+    throw new BadRequestError(formatValidationError(parsed.error));
   }
 
   return persistReceipt(parsed.data);

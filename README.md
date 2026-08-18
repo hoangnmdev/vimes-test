@@ -130,20 +130,6 @@ npm run test:coverage
 
 ![Báo cáo coverage](./docs/images/test-coverage-report.png)
 
-## Build production
+## Web View
 
-### Backend
-
-```bash
-cd api
-npm run build
-npm start
-```
-
-### Frontend
-
-```bash
-cd web
-npm run build
-npm run preview
-```
+![Web View](./docs/images/web-view.png)

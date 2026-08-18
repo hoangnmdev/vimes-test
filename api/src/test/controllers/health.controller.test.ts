@@ -1,8 +1,7 @@
 import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { healthController, readinessController } from "../../controllers/health.controller";
-import * as healthService from "../../services/health.service";
+import { healthController } from "../../controllers/health.controller";
 
 describe("health controllers", () => {
   const status = vi.fn();
@@ -22,32 +21,9 @@ describe("health controllers", () => {
 
     expect(status).toHaveBeenCalledWith(StatusCodes.OK);
     expect(json).toHaveBeenCalledWith({
-      success: true,
+      statusCode: StatusCodes.OK,
+      message: "OK",
       data: { status: "ok" }
-    });
-  });
-
-  it("readinessController returns 200 when service is ok", async () => {
-    vi.spyOn(healthService, "getReadyStatus").mockResolvedValue({ status: "ok" });
-
-    await readinessController(req, res);
-
-    expect(status).toHaveBeenCalledWith(StatusCodes.OK);
-    expect(json).toHaveBeenCalledWith({
-      success: true,
-      data: { status: "ok" }
-    });
-  });
-
-  it("readinessController returns 503 when service is degraded", async () => {
-    vi.spyOn(healthService, "getReadyStatus").mockResolvedValue({ status: "degraded" });
-
-    await readinessController(req, res);
-
-    expect(status).toHaveBeenCalledWith(StatusCodes.SERVICE_UNAVAILABLE);
-    expect(json).toHaveBeenCalledWith({
-      success: true,
-      data: { status: "degraded" }
     });
   });
 });

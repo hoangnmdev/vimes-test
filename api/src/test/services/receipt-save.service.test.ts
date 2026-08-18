@@ -41,7 +41,7 @@ describe("saveReceipt", () => {
 
     await expect(saveReceipt(invalidPayload, persistReceipt)).rejects.toMatchObject({
       statusCode: StatusCodes.BAD_REQUEST,
-      code: "VALIDATION_ERROR"
+      code: "BAD_REQUEST"
     });
     expect(persistReceipt).not.toHaveBeenCalled();
   });
@@ -113,9 +113,11 @@ describe("saveReceipt", () => {
     const connect = vi.fn().mockResolvedValue({ query, release });
     vi.mocked(getDbPool).mockReturnValue({ connect } as never);
 
-    await expect(saveReceipt(createValidReceiptPayload())).rejects.toThrow(
-      "Cannot persist receipt."
-    );
+    await expect(saveReceipt(createValidReceiptPayload())).rejects.toMatchObject({
+      statusCode: StatusCodes.CONFLICT,
+      code: "CONFLICT",
+      message: "Không thể lưu phiếu."
+    });
 
     expect(query).toHaveBeenCalledWith("ROLLBACK");
     expect(release).toHaveBeenCalledTimes(1);
